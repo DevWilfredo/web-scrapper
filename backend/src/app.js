@@ -12,7 +12,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.get('/news', async (req, res) => {
+app.get('/api/v1/news', async (req, res) => {
     try {
         const data = await scraper();
         res.status(200).json({ 'message': 'Entries succesfully scrapped', entries: data });

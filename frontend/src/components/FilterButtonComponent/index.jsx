@@ -24,10 +24,10 @@ const FilterButton = ({ filterMode, setFilterMode }) => {
             <button
               key={key}
               onClick={() => setFilterMode(key)}
-              className={`w-full block text-start cursor-pointer px-3 py-2 rounded-md transition-all ${
+              className={`w-full block text-start cursor-pointer px-3 py-2 rounded-md transition-all text-white ${
                 filterMode === key
-                  ? "bg-gray-900 text-white"
-                  : "text-white hover:bg-gray-900"
+                  ? "bg-gray-900"
+                  : " hover:bg-gray-900"
               }`}
             >
               {label}
