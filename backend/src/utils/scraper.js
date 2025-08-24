@@ -1,31 +1,42 @@
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer');
 
 const scraper = async () => {
-    const browser = await puppeteer.launch()
-    const page = await browser.newPage()
-    await page.goto("https://news.ycombinator.com")
+    const browser = await puppeteer.launch();
+    try {
+        const page = await browser.newPage();
+        await page.goto("https://news.ycombinator.com");
 
-    const data = await page.evaluate(() => {
-        const items = Array.from(document.querySelectorAll('.athing')).map(element => {
-            const title = element.querySelector('.titleline > a');
-            const rank = element.querySelector('.rank');
-            const subtext = element.nextElementSibling.querySelector('.subtext');
-            const score = subtext.querySelector('.score');
-            const comments = subtext.querySelector('.subline > a:nth-of-type(3)');
+        const data = await page.evaluate(() => {
+            const getNumber = (str) => {
+                if (!str) return 0;
+                const match = str.match(/\d+/);
+                return match ? parseInt(match[0], 10) : 0;
+            };
 
-            return {
-                rank: rank?.textContent || null,
-                title: title?.textContent || null,
-                score: score?.textContent || null,
-                comments: comments?.textContent || null
-            }
+            const items = Array.from(document.querySelectorAll('.athing')).map(element => {
+                const title = element.querySelector('.titleline > a');
+                const rank = element.querySelector('.rank');
+                const subtext = element.nextElementSibling.querySelector('.subtext');
+                const score = subtext?.querySelector('.score');
+                const comments = subtext?.querySelector('a:last-of-type');
+
+                return {
+                    rank: rank?.textContent || null,
+                    title: title?.textContent || null,
+                    score: getNumber(score?.textContent),
+                    comments: getNumber(comments?.textContent)
+                };
+            });
+            return items;
         });
-        return items;
-    })
-    await browser.close();
-    return data;
-}
 
-module.exports = scraper
+        return data;
+    } catch (error) {
+        console.error("Error during scraping:", error);
+        throw error;
+    } finally {
+        await browser.close();
+    }
+};
 
-
+module.exports = scraper;
