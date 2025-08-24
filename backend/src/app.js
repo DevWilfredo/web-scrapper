@@ -1,16 +1,16 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const scraper = require('./utils/scraper')
 const app = express();
 
-
-
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 const corsOptions = {
-    origin: process.env.FRONTEND_URL
+    origin: [process.env.FRONTEND_URL]
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.get('/news', async (req, res) => {
     try {
