@@ -11,7 +11,7 @@ const App = () => {
   const fetchEntries = async () => {
     try {
       const data = await getEntries();
-      setEntries(data.entries);
+      setEntries(data?.entries || []);
     } finally {
       setLoading(false);
     }
