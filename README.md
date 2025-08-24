@@ -80,7 +80,7 @@ FRONTEND_URL=http://localhost:5173
 PORT=3000
 
 # Frontend enviroment variables
-VITE_BACKEND_URL = http://localhost:3000
+VITE_BACKEND_URL = http://localhost:3000/api/v1
 ```
 
 
