@@ -58,9 +58,9 @@ frontend/  → React + Vite frontend
 
 ## ⚙️ Installation
 Clone the repo and install dependencies in both backend and frontend:  
-
+it
 ```bash
-git clone https://github.com/your-username/web-scrapper.git
+git clone https://github.com/DevWilfredo/web-scrapper.git
 cd web-scrapper
 
 # Backend
